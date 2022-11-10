@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title> Пример JINJA2 </title>
+    {% import "macros.html" as macros %}
+</head>
+<body>
+<p>
+    Привет, {% if user[3] == "ж" %}
+    студентка
+    {% else %}
+    студент
+    {% endif %}
+    <span style="color: green; font-weight: bold">{{add_spaces(user[0])}}</span>!
+</p>
+<p>
+    Ваша образовательная программа <span style="font-weight: bold">
+    {% if user[1] == "Экономика"%}
+    38.03.01
+    {% elif user[1] == "Бизнес-информатика" %}
+    38.03.05
+    {% endif %}
+    {{user[1]}}</span>.
+</p>
+
+{{ macros.render_list(user[2], n) }}
+
+</body>
+</html>

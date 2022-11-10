@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title> Таблица и график функции </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form style="margin-left: auto; margin-right: auto; width: fit-content;">
+    <p>Функция:
+        <!-- создаем поле со списком для выбора: функция 1, функция 2, функция 3 -->
+<!--        <select name="func">-->
+            {% for i in range(len(list_f)) %}
+            <!-- если номер варианта совпадает со значением i, устанавливаем
+            атрибут selected
+            атрибут value для каждой строки будет совпадать с i -->
+            {% if n_var == i %}
+            <input id=checked_radio name=radio value={{i}} type="radio" checked/>
+                <label for="checked_radio">{{list_f[i]}}</label>
+            {% else %}
+            <input id=radio{{i}} name=radio value={{i}} type="radio" />
+                <label for="radio{{i}}">{{list_f[i]}}</label>
+            {% endif %}
+            {% endfor %}
+    </p>
+    <p>Начало интервала: <input type=text name=beg_i value={{a}} size=1></p>
+    <p>Конец интервала: <input type=text name=end_i value={{b}} size=1></p>
+    <p>Количество значений: <input type=text name=count_p value={{n}} size=1></p>
+    <p><input type=button class="button" id="show_button" value="Построить" onclick="show_content()"></p>
+</form>
+<div id="container" style="width:fit-content; opacity: 0; zoom: 1%; margin-top: -7px;">
+    {% if n_var == 0 %}
+    <p style="margin-bottom: 5px;">
+        <b><i>
+            f(x) = x<sup>3</sup> − 6x<sup>2</sup> + x + 5
+        </i></b>
+    </p><br>
+    {% elif n_var == 1 %}
+    <p style="margin-bottom: 5px;">
+        <b><i>
+            y(x) = x<sup>2</sup> - 5x + 1
+        </i></b>
+    </p><br>
+    {% elif n_var == 2 %}
+    <div style="display: flex;">
+        <b style="margin-top: 5px;"><i>z(x) =&nbsp </i></b>
+        <div class="frac">
+            <span><b><i>1</i></b></span>
+            <span class="symbol"><b><i>/</i></b></span>
+            <span class="bottom"><b><i>x<sup>2</sup> + 1</i></b></span>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="table-wrapper-scroll-y my-custom-scrollbar" style="float: left;">
+
+        <table class="table table-bordered table-striped mb-0">
+            <thead>
+            <tr>
+                <th>x</th>
+                <th>{% for i in range(len(list_f)) %}
+                    {% if n_var == i %}
+                    {{list_f[i]}}
+                    {% endif %}
+                    {% endfor %}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if len(x) <= 17 %}
+            {% for i in range(len(x)) %}
+            <tr>
+                <td>{{x[i]}}</td>
+                <td>{{y[i]}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            {% for i in range(13) %}
+            <tr>
+                <td>{{x[i]}}</td>
+                <td>{{y[i]}}</td>
+            </tr>
+            {% endfor %}
+            <tr class="dots">
+                <td colspan="2" class="dots">. . .</td>
+            <tr>
+                {% for i in range(len(x)-2, len(x)) %}
+            <tr>
+                <td>{{x[i]}}</td>
+                <td>{{y[i]}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div style="float: right; margin-top: -50px;">
+        <img src="{{ pict }}">
+    </div>
+</div>
+</body>
+<script src="script.js"></script>
+</html>

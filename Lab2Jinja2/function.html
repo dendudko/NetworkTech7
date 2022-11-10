@@ -1,0 +1,164 @@
+﻿<html>
+<head>
+    <title> Таблица и график функции </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form style="margin-left: auto; margin-right: auto; width: fit-content;">
+    <p>Функция:
+        <!-- создаем поле со списком для выбора: функция 1, функция 2, функция 3 -->
+<!--        <select name="func">-->
+            
+            <!-- если номер варианта совпадает со значением i, устанавливаем
+            атрибут selected
+            атрибут value для каждой строки будет совпадать с i -->
+            
+            <input id=radio0 name=radio value=0 type="radio" />
+                <label for="radio0">f(x)</label>
+            
+            
+            <!-- если номер варианта совпадает со значением i, устанавливаем
+            атрибут selected
+            атрибут value для каждой строки будет совпадать с i -->
+            
+            <input id=radio1 name=radio value=1 type="radio" />
+                <label for="radio1">y(x)</label>
+            
+            
+            <!-- если номер варианта совпадает со значением i, устанавливаем
+            атрибут selected
+            атрибут value для каждой строки будет совпадать с i -->
+            
+            <input id=checked_radio name=radio value=2 type="radio" checked/>
+                <label for="checked_radio">z(x)</label>
+            
+            
+    </p>
+    <p>Начало интервала: <input type=text name=beg_i value=-2 size=1></p>
+    <p>Конец интервала: <input type=text name=end_i value=6 size=1></p>
+    <p>Количество значений: <input type=text name=count_p value=100 size=1></p>
+    <p><input type=button class="button" id="show_button" value="Построить" onclick="show_content()"></p>
+</form>
+<div id="container" style="width:fit-content; opacity: 0; zoom: 1%; margin-top: -7px;">
+    
+    <div style="display: flex;">
+        <b style="margin-top: 5px;"><i>z(x) =&nbsp </i></b>
+        <div class="frac">
+            <span><b><i>1</i></b></span>
+            <span class="symbol"><b><i>/</i></b></span>
+            <span class="bottom"><b><i>x<sup>2</sup> + 1</i></b></span>
+        </div>
+    </div>
+    
+
+    <div class="table-wrapper-scroll-y my-custom-scrollbar" style="float: left;">
+
+        <table class="table table-bordered table-striped mb-0">
+            <thead>
+            <tr>
+                <th>x</th>
+                <th>
+                    
+                    
+                    
+                    
+                    
+                    z(x)
+                    
+                    
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            
+            <tr>
+                <td>-2.0</td>
+                <td>0.2</td>
+            </tr>
+            
+            <tr>
+                <td>-1.9192</td>
+                <td>0.2135</td>
+            </tr>
+            
+            <tr>
+                <td>-1.8384</td>
+                <td>0.2283</td>
+            </tr>
+            
+            <tr>
+                <td>-1.7576</td>
+                <td>0.2446</td>
+            </tr>
+            
+            <tr>
+                <td>-1.6768</td>
+                <td>0.2624</td>
+            </tr>
+            
+            <tr>
+                <td>-1.596</td>
+                <td>0.2819</td>
+            </tr>
+            
+            <tr>
+                <td>-1.5152</td>
+                <td>0.3034</td>
+            </tr>
+            
+            <tr>
+                <td>-1.4343</td>
+                <td>0.3271</td>
+            </tr>
+            
+            <tr>
+                <td>-1.3535</td>
+                <td>0.3531</td>
+            </tr>
+            
+            <tr>
+                <td>-1.2727</td>
+                <td>0.3817</td>
+            </tr>
+            
+            <tr>
+                <td>-1.1919</td>
+                <td>0.4131</td>
+            </tr>
+            
+            <tr>
+                <td>-1.1111</td>
+                <td>0.4475</td>
+            </tr>
+            
+            <tr>
+                <td>-1.0303</td>
+                <td>0.4851</td>
+            </tr>
+            
+            <tr class="dots">
+                <td colspan="2" class="dots">. . .</td>
+            <tr>
+                
+            <tr>
+                <td>5.9192</td>
+                <td>0.0277</td>
+            </tr>
+            
+            <tr>
+                <td>6.0</td>
+                <td>0.027</td>
+            </tr>
+            
+            
+            </tbody>
+        </table>
+    </div>
+    <div style="float: right; margin-top: -50px;">
+        <img src="pict.jpg">
+    </div>
+</div>
+</body>
+<script src="script.js"></script>
+</html>

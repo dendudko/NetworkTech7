@@ -1,0 +1,12 @@
+{% macro render_list(list, n) %}
+<p>Вы изучаете {{word_form(n)}}:</p>
+<ul>
+    {% for i in range(n) %}
+    {% if i != n - 1 %}
+    <li>{{list[i]}},</li>
+    {% else %}
+    <li>{{list[i]}}.</li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endmacro %}
