@@ -1,0 +1,128 @@
+table {
+    border-collapse: collapse;
+}
+
+/* Нечётные строки */
+table tbody tr:nth-child(odd) {
+    background: white;
+}
+
+/* Четные строки */
+table tbody tr:nth-child(even) {
+    background: lavender;
+}
+
+table thead tr {
+    background: lavender;
+}
+
+table td, table th, table tr {
+    border: 1px solid whitesmoke;
+    padding: 2px 10px;
+    text-align: center;
+}
+
+table tbody tr:hover {
+    background: lightblue;
+}
+
+table thead tr:hover {
+    background: lightblue;
+}
+
+/*.my-custom-scrollbar {*/
+/*    position: relative;*/
+/*    height: 380px;*/
+/*    overflow: auto;*/
+/*}*/
+
+/*.table-wrapper-scroll-y {*/
+/*    display: block;*/
+/*}*/
+
+/*.table-wrapper-scroll-y::-webkit-scrollbar {*/
+/*    border-radius: 3px;*/
+/*    width: 10px;*/
+/*    border: 1px solid rgba(173, 196, 230, 0.5);*/
+/*    background-color: rgba(173, 196, 230, 0.25);*/
+/*}*/
+
+/*.table-wrapper-scroll-y::-webkit-scrollbar-thumb {*/
+/*    border-radius: 3px;*/
+/*    background-color: #FF4D005C;*/
+/*}*/
+
+/*.table-wrapper-scroll-y::-webkit-scrollbar-thumb:hover {*/
+/*    background-color: #FF4D0090;*/
+/*}*/
+
+.button {
+    cursor: pointer;
+    background-color: #FF4D005C;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 3px 10px;
+}
+
+.button:hover {
+    background-color: #FF4D0090;
+}
+
+.frac {
+    margin-top: -8px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.frac > span {
+    display: block;
+    padding: 0.1em;
+}
+
+.frac span.bottom {
+    border-top: 1.5px solid black;
+}
+
+.frac span.symbol {
+    display: none;
+}
+
+.dots {
+    align-items: center;
+    font-size: large;
+    font-weight: bold;
+    color: #FF4D0090;
+    border: none;
+    background-color: white;
+}
+
+.dots:hover {
+    background-color: white;
+}
+
+.table_container {
+    display: inline-flex;
+    width: fit-content;
+    height: fit-content;
+    padding-right: 15px;
+    text-align: center;
+}
+
+.table_container * {
+    margin: 0;
+    padding: 0;
+}
+
+.table_container table th, .table_container table td {
+    padding: 2px 10px;
+}
+
+.main_container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

@@ -1,0 +1,30 @@
+{% macro render_table(table_name, table_content, len) %}
+<p>
+    <b>{{table_name}} </b>
+</p>
+<br>
+<!-- количество строк в таблице -->
+{% set n = len(table_content) %}
+<table>
+    <!-- формируем заголовок таблицы (имена столбцов) -->
+    <thead>
+    <tr>
+        {% for name in table_content.dtypes.index %}
+        <th>{{name}}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- для всех строк таблицы -->
+    {% for i in range(n) %}
+    <tr>
+        <!-- выводим значение каждого столбца -->
+        {% for name in table_content.dtypes.index %}
+        <td> {{ table_content.loc[i, name] }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}

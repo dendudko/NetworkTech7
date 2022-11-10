@@ -1,0 +1,7 @@
+{% from "macros.html" import render_table %}
+<div class="table_container">
+    <div id="{{ table_name }}">
+        {{ render_table(table_name, table_content, len) }}
+        <br><br>
+    </div>
+</div>
