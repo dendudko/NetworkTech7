@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% import "macros.html" as macros %}
+
+<html>
+<head>
+ <title> Карточка читателя </title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+ <p>
+ <form>
+ Читатель:
+ <!-- Создаем поле со списком -->
+  <label>
+   <select name="reader">
+   {% set n = len(combo_box) %}
+   {% for i in range(n) %}
+   {% set id_r = combo_box.loc[i, "reader_id"] %}
+
+   {% if id_r == reader_id %}
+   <option selected value={{id_r}}>
+   {% else %}
+   <option value={{id_r}}>
+   {% endif %}
+   {{ combo_box.loc[i, "reader_name"] }}
+   </option>
+   {% endfor %}
+   </select>
+  </label>
+
+  <input type="submit" class="button" value="Найти">
+ </form>
+
+  <div> {{macros.render_table("Карточка", book_reader)}} </div>
+</body>
+</html>

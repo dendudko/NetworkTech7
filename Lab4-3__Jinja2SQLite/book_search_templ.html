@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% import "macros.html" as macros %}
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск книги</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="container">
+    <div>
+        <form class="form">
+            {{macros.render_list("Автор", author)}}
+            {{macros.render_list("Жанр", genre)}}
+            {{macros.render_list("Издательство", publisher)}}
+            <p>
+                <input type="submit" class="button" value="Найти" style="width: 88px;">
+                <input type="submit" class="button" value="Очистить" style="width: 88px;">
+            </p>
+        </form>
+    </div>
+    <div>
+        <b>Жанры: </b>
+        {% for i in range(len(genre_list)-1) %}
+        {{genre_list[i]}},
+        {%endfor%}
+        {{genre_list[len(genre_list)-1]}}.
+        <b>Авторы: </b>
+        {% for i in range(len(author_list)-1) %}
+        {{author_list[i]}},
+        {%endfor%}
+        {{author_list[len(author_list)-1]}}
+        <p>
+        <div class="grid">
+            {{macros.grid_list(book_info)}}
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

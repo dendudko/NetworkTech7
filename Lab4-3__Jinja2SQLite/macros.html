@@ -1,0 +1,31 @@
+{% macro render_list(title, relation) %}
+
+<details>
+    <summary>{{title}}</summary>
+    {% set n = len(relation) %}
+    {% for i in range(n) %}
+    <input type="checkbox" name="option1" value={{i}} id={{title}}{{i}} style="cursor: pointer;">
+    <label for={{title}}{{i}} style="cursor: pointer;">{{ relation.iloc[i,0] }} ({{ relation.iloc[i,1] }})</label>
+    <br>
+    {% endfor %}
+
+</details>
+
+{% endmacro %}
+
+
+{%  macro grid_list(relation) %}
+
+{% set n = len(relation) %}
+{% for i in range(n) %}
+<div class="{{i}}">
+
+    {% for name in relation.dtypes.index %}
+    <b>{{name}}: </b>{{relation.loc[i,name]}}<br>
+    {% endfor %}
+    <input type="submit" class="button" value="Выбрать" style="float: right;">
+</div>
+
+{% endfor %}
+
+{% endmacro %}

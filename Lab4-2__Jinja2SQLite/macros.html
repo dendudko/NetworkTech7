@@ -1,0 +1,30 @@
+{% macro render_table(table_name, relation) %}
+<p>
+    <b style="margin-left: 320px; font-size: large">{{table_name}} </b>
+</p>
+{% set n = len(relation) %}
+<table>
+    <thead>
+    <tr>
+        {% for name in relation.dtypes.index %}
+        <th>
+            {{name}}
+        </th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in range(n) %}
+    <tr>
+        {% for name in relation.dtypes.index %}
+        {% if (relation.loc[i, name] == "КнопкуСюда"): %}
+        <td><input type="submit" class="button" style="padding: 0 10px;" value="Сдать"></td>
+        {% else %}
+        <td> {{ relation.loc[i, name] }}</td>
+        {%endif%}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
