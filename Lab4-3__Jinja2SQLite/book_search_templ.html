@@ -20,16 +20,43 @@
         </form>
     </div>
     <div>
-        <b>Жанры: </b>
-        {% for i in range(len(genre_list)-1) %}
-        {{genre_list[i]}},
-        {%endfor%}
-        {{genre_list[len(genre_list)-1]}}.
-        <b>Авторы: </b>
-        {% for i in range(len(author_list)-1) %}
-        {{author_list[i]}},
-        {%endfor%}
-        {{author_list[len(author_list)-1]}}
+        <form>
+            {% if len(genre_list) != 0 %}
+            <b>Жанры: </b>
+            {% for i in range(len(genre_list)-1) %}
+            {{genre_list[i]}}&nbsp<input class="button" type="submit" value="X" name="{{genre_list[i]}}"
+                                         style="margin: 0; padding:0; width: 15px; height: 15px;">,
+            {%endfor%}
+            {{genre_list[len(genre_list)-1]}}&nbsp<input class="button" type="submit" value="X"
+                                                         name="{{genre_list[len(genre_list)-1]}}"
+                                                         style="margin: 0; padding:0; width: 15px; height: 15px;">.
+            {% endif %}
+        </form>
+        <form>
+            {% if len(author_list)!=0 %}
+            <b>Авторы: </b>
+            {% for i in range(len(author_list)-1) %}
+            {{author_list[i]}}&nbsp<input class="button" type="submit" value="X" name="{{author_list[i]}}"
+                                          style="margin: 0; padding:0; width: 15px; height: 15px;">,
+            {%endfor%}
+            {{author_list[len(author_list)-1]}}&nbsp<input class="button" type="submit" value="X"
+                                                           name="{{author_list[len(author_list)-1]}}"
+                                                           style="margin: 0; padding:0; width: 15px; height: 15px;">.
+            {% endif %}
+        </form>
+        <form>
+            {% if len(publisher_list) != 0 %}
+            <b>Издательства: </b>
+            {% for i in range(len(publisher_list)-1) %}
+            {{publisher_list[i]}}&nbsp<input class="button" type="submit" value="X" name="{{publisher_list[i]}}"
+                                             style="margin: 0; padding:0; width: 15px; height: 15px;">,
+            {%endfor%}
+            {{publisher_list[len(publisher_list)-1]}}&nbsp<input class="button" type="submit" value="X"
+                                                                 name="{{publisher_list[len(publisher_list)-1]}}"
+                                                                 style="margin: 0; padding:0; width: 15px; height: 15px;">.
+            {% endif %}
+        </form>
+
         <p>
         <div class="grid">
             {{macros.grid_list(book_info)}}

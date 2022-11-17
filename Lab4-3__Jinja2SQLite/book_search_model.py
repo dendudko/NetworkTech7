@@ -35,10 +35,15 @@ def get_book_info(conn, g, a, p):
     genre_list = g
     author_list = a
     publisher_list = p
-    df = pd.read_sql(f"""
- select * from book_info
- where Жанр in {genre_list} and Авторы in {author_list}
-  """, conn)
+    df = pd.read_sql("""select * from book_info;""", conn)
+    if genre_list:
+        df = df[df.Жанр.isin(genre_list)]
+    if author_list:
+        df = df[df.Авторы.isin(author_list)]
+    if publisher_list:
+        df = df[df.Издательство.isin(publisher_list)]
+
+    df = df.reset_index(drop=True)
     return df
 
 

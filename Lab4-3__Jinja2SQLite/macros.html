@@ -4,11 +4,10 @@
     <summary>{{title}}</summary>
     {% set n = len(relation) %}
     {% for i in range(n) %}
-    <input type="checkbox" name="option1" value={{i}} id={{title}}{{i}} style="cursor: pointer;">
-    <label for={{title}}{{i}} style="cursor: pointer;">{{ relation.iloc[i,0] }} ({{ relation.iloc[i,1] }})</label>
+    <input type="checkbox" name={{title}} value={{i}} id={{title}}{{i}}>
+    <label for={{title}}{{i}} class="details_label">{{ relation.iloc[i,0] }} ({{ relation.iloc[i,1] }})</label>
     <br>
     {% endfor %}
-
 </details>
 
 {% endmacro %}

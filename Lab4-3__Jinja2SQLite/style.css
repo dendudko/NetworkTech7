@@ -61,4 +61,12 @@ details summary:hover{
     cursor: pointer;
 }
 
+.details_label {
+    cursor: pointer;
+    padding: 2.5px;
+    border-radius: 6px;
+}
 
+.details_label:hover {
+    background: aliceblue;
+}

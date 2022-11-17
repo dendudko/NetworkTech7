@@ -5,13 +5,13 @@ from book_search_model import *
 # типо пользователь натыкал
 genre_list = ("Детектив", "Приключения", "Роман")
 author_list = ("Агата Кристи", "Жюль Верн", "Ильф И.А.,Петров Е.П.")
-publisher_list = ()
+publisher_list = ("ДРОФА",)
 
 conn = sqlite3.connect("library.sqlite")
 df_book_info = get_book_info(conn, genre_list, author_list, publisher_list)
+df_genre = get_genre(conn)
 df_author = get_author(conn)
 df_publisher = get_publisher(conn)
-df_genre = get_genre(conn)
 conn.close()
 
 # создаем объект-шаблон
