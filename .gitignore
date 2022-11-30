@@ -1,3 +1,4 @@
 .idea
 .gitattributes
 __pycache__
+flask.exe
