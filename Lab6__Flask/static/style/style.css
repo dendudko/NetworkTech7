@@ -9,3 +9,7 @@
 .button:hover {
     background-color: lightskyblue;
 }
+
+.button:active {
+    background-color: steelblue;
+}
