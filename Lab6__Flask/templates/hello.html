@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title> Приветствие </title>
+    <link rel="stylesheet" href="../static/style/style.css">
+</head>
+<body>
+{% if name!="" %}
+<p>
+    Привет,
+    {% if gender == "m" %}
+    студент
+    {% elif gender == "w" %}
+    студентка
+    {% endif %}
+    {{name}}!
+</p>
+<p>
+    Ваша образовательная программа: {{program}}.
+</p>
+<p>
+    {% if subjects_select!=[] %}
+    Вы изучаете дисциплины:
+    {% for sub in subjects_select[:-1] %}
+    <a href="{{ url_for('subject', sub=sub) }}">{{sub}}</a>,
+    {% endfor %}
+    <a href="{{ url_for('subject', sub=subjects_select[-1]) }}">{{subjects_select[-1]}}</a>.
+    {% else %}
+    Вы не изучаете никаких дисциплин
+    {% endif %}
+</p>
+<p>
+    {% if olympiads_select!=[] %}
+    Вы участвовали в {% if len(olympiads_select)>1 %}олимпиадах{% else %}олимпиаде{% endif %}:
+    {% for oly in olympiads_select[:-1] %}
+    <a href="{{ url_for('olympiad', oly=oly) }}">{{oly}}</a>,
+    {% endfor %}
+    <a href="{{ url_for('olympiad', oly=olympiads_select[-1]) }}">{{olympiads_select[-1]}}</a>.
+    {% else %}
+    Вы не участвовали в олимпиадах :(
+    {% endif %}
+</p>
+{% else %}
+<p>
+    Введите имя, пожалуйста!
+</p>
+{% endif %}
+<p><input name=action class="button" onclick="history.back()"
+          type=submit value="Вернуться"/>
+</p>
+</body>
