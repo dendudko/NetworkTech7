@@ -1,15 +1,23 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Приветствие</title>
     <link rel="stylesheet" href="../static/style/style.css">
 </head>
 <body>
 <form action="{{ url_for('hello') }}" method="get">
-    <p>Имя: <input type=text name=username></p>
+    <p>Имя: <input type=text name=username value={{name}}></p>
     <p>Пол:<br>
+        {% if gender=='w' %}
+        <input type=radio name=gender value=w checked> Ж <br>
+        {% else %}
         <input type=radio name=gender value=w> Ж <br>
+        {% endif %}
+        {% if gender=='m' %}
+        <input type=radio name=gender value=m checked> M
+        {% else %}
         <input type=radio name=gender value=m> M
+        {% endif %}
     </p>
     </p>
     Образовательная программа:
@@ -33,8 +41,8 @@
         {{olympiad_list[i]}}<br>
         {% endfor %}
     </p>
-    <p><input type=submit class="button" value=Отправить></p>
-
+    <p><input type=submit class="button" value=Отправить>
+    <input type=reset class="button" value=Очистить></p>
 </form>
 </body>
 </html>

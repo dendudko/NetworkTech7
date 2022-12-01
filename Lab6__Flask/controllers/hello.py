@@ -1,6 +1,7 @@
 import constants
 from app import app
 from flask import render_template, request
+from controllers import index
 
 
 @app.route('/hello', methods=['GET'])
@@ -23,12 +24,15 @@ def hello():
     # формируем список из выбранных пользователем олимпиад
     olympiad_id = request.values.getlist('olympiad[]')
     olympiads_select = [constants.olympiads[int(i)] for i in olympiad_id]
+    program = constants.programs[int(program_id)]
 
-    html = render_template(
+    html = index.index(name=name, gender=gender, program=program,
+                       subjects_select=subjects_select, olympiads_select=olympiads_select)
+    html += render_template(
         'hello.html',
         name=name,
         gender=gender,
-        program=constants.programs[int(program_id)],
+        program=program,
         program_list=constants.programs,
         len=len,
         subjects_select=subjects_select,

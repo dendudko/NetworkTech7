@@ -8,6 +8,6 @@ def subject(sub):
     html = render_template(
         'subject.html',
         sub=sub,
-        discription=constants.subject_dict[sub]
+        description=constants.subject_dict[sub]
     )
     return html

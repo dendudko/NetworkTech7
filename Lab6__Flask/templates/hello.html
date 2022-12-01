@@ -20,7 +20,7 @@
 </p>
 <p>
     {% if subjects_select!=[] %}
-    Вы изучаете дисциплины:
+    Вы изучаете {% if len(subjects_select)>1 %}дисциплины{% else %}дисциплину{% endif %}:
     {% for sub in subjects_select[:-1] %}
     <a href="{{ url_for('subject', sub=sub) }}">{{sub}}</a>,
     {% endfor %}
