@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../static/style/style.css">
 </head>
 <body>
-<form action="{{ url_for('hello') }}" method="get">
+<form action="{{ url_for('index') }}" method="get">
     <p>Имя: <input type=text name=username value={{name}}></p>
     <p>Пол:<br>
         {% if gender=='w' %}
@@ -57,7 +57,7 @@
     </p>
     <p><input type=submit class="button" value=Отправить></p>
 </form>
-<form action="{{ url_for('index') }}" style="margin-top: -39px; margin-left: 110px;">
+<form action="/" style="margin-top: -39px; margin-left: 110px;">
     <input type="submit" class="button" value=Очистить>
 </form>
 </body>
