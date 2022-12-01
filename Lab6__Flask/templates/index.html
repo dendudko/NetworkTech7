@@ -55,8 +55,10 @@
         {% endif %}
         {% endfor %}
     </p>
-    <p><input type=submit class="button" value=Отправить>
-        <input type=reset class="button" value=Очистить></p>
+    <p><input type=submit class="button" value=Отправить></p>
+</form>
+<form action="{{ url_for('index') }}" style="margin-top: -39px; margin-left: 110px;">
+    <input type="submit" class="button" value=Очистить>
 </form>
 </body>
 </html>
