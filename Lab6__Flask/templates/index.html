@@ -23,26 +23,40 @@
     Образовательная программа:
     <select name=program>
         {% for i in range(len(program_list)) %}
+        {% if program==program_list[i] %}
+        <option value={{i}} selected>{{program_list[i]}}</option>
+        {% else %}
         <option value={{i}}>{{program_list[i]}}</option>
+        {% endif %}
         {% endfor %}
     </select>
     </p>
     <p>
         Выберите дисциплины, которые Вы изучаете:<br>
         {% for i in range(len(subject_list)) %}
+        {% if subject_list[i] in subjects_select %}
+        <input type=checkbox name=subject[] value={{i}} checked>
+        {{subject_list[i]}}<br>
+        {% else %}
         <input type=checkbox name=subject[] value={{i}}>
         {{subject_list[i]}}<br>
+        {% endif %}
         {% endfor %}
     </p>
     <p>
         Отметьте олимпиады и конкурсы, в которых Вы участвовали:<br>
         {% for i in range(len(olympiad_list)) %}
+        {% if olympiad_list[i] in olympiads_select %}
+        <input type=checkbox name=olympiad[] value={{i}} checked>
+        {{olympiad_list[i]}}<br>
+        {% else %}
         <input type=checkbox name=olympiad[] value={{i}}>
         {{olympiad_list[i]}}<br>
+        {% endif %}
         {% endfor %}
     </p>
     <p><input type=submit class="button" value=Отправить>
-    <input type=reset class="button" value=Очистить></p>
+        <input type=reset class="button" value=Очистить></p>
 </form>
 </body>
 </html>
