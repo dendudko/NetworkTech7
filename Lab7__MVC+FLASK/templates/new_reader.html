@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+</head>
+<body>
+<div class=menu>
+    <ul>
+        <li class=active><a href={{ url_for("index") }}>Читатель</a></li>
+        <li><a href={{ url_for("book_search") }}>Книги</a></li>
+        <li><a href={#{ url_for("statistics") }#}>Статистика</a></li>
+    </ul>
+</div>
+<div class="block">
+    <p>
+    <form action="{{ url_for('index') }}" method="get">
+        <input type="text" name="new_reader_fio" placeholder="ФИО" required>
+        <input type="submit" class="button" name="submit_create_new_reader" value="Создать">
+    </form>
+    </p>
+    <p>
+        <input type="submit" class="button" onclick="history.back();" value="Отменить">
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <title> Карточка читателя </title>
+    <!—- Макрос для вывода таблицы без ключевого столбца,
+    переданного параметром -->
+    {% macro render_table(table_name, relation, id) %}
+        <p>
+            <b>{{ table_name }} </b>
+        </p>
+        {% set n = len(relation) %}
+        <table>
+        <thead>
+            <tr>
+                {% for name in relation.dtypes.index %}
+                    {% if name != id %}
+                        <th>{{ name }}</th>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </thead>
+            <tbody>
+
+            {% for i in range(n) %}
+                <tr>
+                    {% for name in relation.dtypes.index %}
+                        {% if name != id %}
+                            <td>
+                                {% if relation.loc[i][name] == None %}
+                                    <form action='' method="get">
+                                        <input type="hidden" name=return
+                                               value={{ relation.loc[i]["book_reader_id"] }}>
+                                        <input type="submit" class="button" value="Сдать" style="width: 76px;">
+                                    </form>
+                                {% else %}
+                                    {{ relation.loc[i][name] }}
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endmacro %}
+
+    <!—Вставить макрос для формирования поля со списком из ЛР 5 -->
+    <!-Сделано -->
+    {% macro render_readers_list(combo_box) %}
+        <label>
+            <select name=reader>
+                {% for i in range(len(combo_box)) %}
+                    {% if reader_id==combo_box.iloc[i][0] %}
+                        <option value={{ combo_box.iloc[i][0] }} selected>{{ combo_box.iloc[i][1] }}</option>
+                    {% else %}
+                        <option value={{ combo_box.iloc[i][0] }}>{{ combo_box.iloc[i][1] }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </label>
+    {% endmacro %}
+</head>
+<body>
+<div class=menu>
+    <ul>
+        <li class=active><a href={{ url_for("index") }}>Читатель</a></li>
+        <li><a href={{ url_for("book_search") }}>Книги</a></li>
+        <li><a href={#{ url_for("statistics") }#}>Статистика</a></li>
+    </ul>
+</div>
+<div class=block>
+    <p>
+    <form action='' method="get">
+        Читатель:
+        <!-- Создаем поле со списком с именем reader-->
+        {{ render_readers_list(combo_box) }}
+        <input type="submit" class="button" value="Найти">
+    </form>
+    </p>
+    <p>
+        <!-- Пока страница не создана, не указывать ее в action -->
+    <form action="{{ url_for('index') }}" method="get">
+        <input type="submit" class="button" name="new_reader" value="Новый читатель">
+    </form>
+    </p>
+    {{ render_table("Карточка",book_reader, "book_reader_id") }}
+    <p>
+        <!-- Пока страница не создана, не указывать ее в action -->
+    <form action="{{ url_for('book_search') }}" method="get">
+        <input type="submit" class="button" value="Взять книгу">
+    </form>
+    </p>
+</div>
+
+</body>
+</html>
