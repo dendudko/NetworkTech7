@@ -21,11 +21,6 @@ def index():
     elif request.values.get('new_reader_fio'):
         new_reader = request.values.get('new_reader_fio')
         session['reader_id'] = int(get_new_reader(conn, new_reader))
-    # нажата кнопка Взять со страницы Поиск
-    # (взять в комментарии, пока не реализована страница Поиск)
-    elif request.values.get('book'):
-        book_id = int(request.values.get('book'))
-        borrow_book(conn, book_id, session['reader_id'])
     # нажата кнопка Не брать книгу со страницы Поиск
     elif request.values.get('noselect'):
         a = 1
@@ -33,7 +28,7 @@ def index():
     elif request.values.get('return'):
         book_reader_id = int(request.values.get('return'))
         return_book(conn, book_reader_id)
-    else:
+    elif not session['reader_id']:
         session['reader_id'] = 1
 
     df_reader = get_reader(conn)
