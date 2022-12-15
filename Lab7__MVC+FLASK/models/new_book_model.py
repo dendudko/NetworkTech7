@@ -7,10 +7,12 @@ def create_new_book(conn, author, genre, publisher, name, year, amount):
     where genre_name='{genre}';
     ''', conn).values[0][0]
 
-    author_id = pd.read_sql(f'''
-        select author_id from author
-        where author_name='{author}';
-    ''', conn).values[0][0]
+    author_id = []
+    for a in author:
+        author_id.append(pd.read_sql(f'''
+            select author_id from author
+            where author_name='{a}';
+        ''', conn).values[0][0])
 
     publisher_id = pd.read_sql(f'''
             select publisher_id from publisher
@@ -26,10 +28,11 @@ def create_new_book(conn, author, genre, publisher, name, year, amount):
 
     book_id = pd.read_sql('''select max(book_id) from book;''', conn).values[0][0]
 
-    cur.executescript(f'''
+    for a in author_id:
+        cur.executescript(f'''
         insert into book_author (book_id, author_id)
         values
-        ({book_id}, {author_id});
-    ''')
+        ({book_id}, {a});
+        ''')
 
     conn.commit()

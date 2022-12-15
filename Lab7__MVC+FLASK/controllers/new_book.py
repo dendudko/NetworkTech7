@@ -10,7 +10,7 @@ from utils import get_db_connection
 def new_book():
     conn = get_db_connection()
     if request.values.get('name'):
-        create_new_book(conn, request.values.get('author'), request.values.get('genre'),
+        create_new_book(conn, request.values.getlist('author'), request.values.get('genre'),
                         request.values.get('publisher'),
                         request.values.get('name'), request.values.get('year'), request.values.get('amount'))
     df_genre = get_genre(conn)
