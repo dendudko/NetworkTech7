@@ -22,13 +22,10 @@ def index():
         new_reader = request.values.get('new_reader_fio')
         session['reader_id'] = int(get_new_reader(conn, new_reader))
     # нажата кнопка Не брать книгу со страницы Поиск
-    elif request.values.get('noselect'):
-        a = 1
-    # вошли первый раз
     elif request.values.get('return'):
         book_reader_id = int(request.values.get('return'))
         return_book(conn, book_reader_id)
-    elif not session['reader_id']:
+    elif 'reader_id' not in session:
         session['reader_id'] = 1
 
     df_reader = get_reader(conn)

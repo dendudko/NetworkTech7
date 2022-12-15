@@ -115,6 +115,7 @@ details summary:hover {
     cursor: pointer;
     padding: 2.5px;
     border-radius: 6px;
+    width: max-content;
 }
 
 .details_label:hover {
