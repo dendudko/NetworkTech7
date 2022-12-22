@@ -4,19 +4,19 @@
     <title>Создание книги</title>
     <link rel="stylesheet" href="/static/css/style.css">
 
-    {% macro render_list(title, name, relation, selected) %}
+    {% macro render_list(title, type, name, relation, selected) %}
         <div>
             <b>{{ title }}</b><br>
             {% set n = len(relation) %}
             {% for i in range(n) %}
                 {% if relation.iloc[i][0] in selected %}
-                    <input checked type="checkbox" name={{ name }} value='{{ relation.iloc[i][0] }}' id=
+                    <input checked type="{{type}}" name={{ name }} value='{{ relation.iloc[i][0] }}' id=
                             {{ name }}{{ i }}>
                     <label for={{ name }}{{ i }} class="details_label">{{ relation.iloc[i][0] }}
                         ({{ relation.iloc[i][1] }})</label>
                     <br>
                 {% else %}
-                    <input type="checkbox" name={{ name }} value='{{ relation.iloc[i][0] }}' id=
+                    <input type="{{type}}" name={{ name }} value='{{ relation.iloc[i][0] }}' id=
                             {{ name }}{{ i }}>
                     <label for={{ name }}{{ i }} class="details_label">{{ relation.iloc[i][0] }}
                         ({{ relation.iloc[i][1] }})</label>
@@ -37,18 +37,18 @@
 <div class="container">
     <div class="form" style="width: max-content;">
         <form method="get" style="display: inline-flex; flex-direction: row;">
-            {{ render_list("Автор", "author", author, author_list) }}
-            {{ render_list("Жанр", "genre", genre, genre_list) }}
-            {{ render_list("Издательство", "publisher", publisher, publisher_list) }}
-            <input type="text" name="name" placeholder="Название" style="width: 162px; height: min-content;" required>
-            <input type="number" min="1900" max="2023" name="year" placeholder="Год выхода" style="width: 162px; height: min-content;" required>
-            <input type="number" min="0" name="amount" placeholder="Количество" style="width: 162px; height: min-content;" required>
+            {{ render_list("Автор", "checkbox", "author", author, author_list) }}
+            {{ render_list("Жанр", "radio", "genre", genre, genre_list) }}
+            {{ render_list("Издательство", "radio", "publisher", publisher, publisher_list) }}
+            <input type="text" name="name" placeholder="Название" style="width: 162px; height: min-content; margin-left: 10px;" required>
+            <input type="number" min="1900" max="2023" name="year" placeholder="Год выхода" style="width: 162px; height: min-content; margin-left: 10px;" required>
+            <input type="number" min="0" name="amount" placeholder="Количество" style="width: 162px; height: min-content; margin-left: 10px;" required>
             <br>
-            <input type="submit" class="button" value="Создать" style="width: 162px; height: min-content;">
+            <input type="submit" class="button" value="Создать" style="width: 174px; height: min-content; margin-left: 10px;">
         </form>
 
         <form action="{{ url_for('new_book') }}" method="get" style="float: end; margin-top: 10px;">
-            <input type="submit" class="button" value="Очистить" style="width: 88px;">
+            <input type="submit" class="button" value="Очистить" style="width: 120px;">
         </form>
     </div>
 </div>
