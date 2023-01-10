@@ -11,13 +11,13 @@
     display: inline-block;
     vertical-align: top;
     color: #6f6d6d;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .menu a {
     text-decoration: none; /* Убирает подчеркивание для ссылок */
     color: #6f6d6d;
-    padding: 10px;
+    padding: 10px 20px;
 }
 
 .menu li:hover {
