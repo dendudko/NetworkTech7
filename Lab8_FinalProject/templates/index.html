@@ -88,10 +88,16 @@
             </a>
         </li>
 
-        <li style="float: right; background-color: black;">
-            <a style="color: #cccccc;" href={{ url_for("index") }}>Вход и регистрация</a>
-        </li>
-        <li style="float: right;"><a href={{ url_for("index") }}><b>&#10753;</b> Подать объявление</a></li>
+        {% if not user_id %}
+            <li style="float: right; background-color: black;">
+                <a style="color: #cccccc;" href={{ url_for("login") }}>Вход без регистрации</a>
+            </li>
+        {% else %}
+            <li style="float: right; background-color: black;">
+                <a style="color: #cccccc;" href={{ url_for("logout") }}>Выйти</a>
+            </li>
+        {% endif %}
+        <li style="float: right;"><a href={{ url_for("new_selling") }}><b>&#10753;</b> Подать объявление</a></li>
     </ul>
 </div>
 <div class="content-container">
@@ -145,6 +151,11 @@
             {% endfor %}
         </select>
 
+        <input type="number" placeholder="Мощность от" min=0 max=2000 step=1
+               class="from" name="minhp" value={{ min_hp }}>
+        <input type="number" placeholder="до" min=0 max=2000 step=1
+               class="to" name="maxhp" value={{ max_hp }}>
+
         <input type="submit" value="Показать">
     </form>
 
@@ -163,91 +174,127 @@
     {#            </ul>#}
     {#        </form>#}
     {#    {% endif %}#}
+
     {% if len(df_selling)!=0 %}
+        <h2>Объявлений найдено: {{ int(len(df_selling)) }}</h2>
+        <hr style="width: 1097px; margin-left: 0;">
         {% for iter, row in iterrows(df_selling) %}
             <div class="selling">
-                <table>
-                    <tbody>
+                {# Таблица как контейнер, в ней еще 3 таблицы - код некрасивый, ну и ладно,
+                поставленную задачу решает) #}
+                <table style="table-layout: fixed;">
                     <tr>
-                        <td colspan=3 style="vertical-align: top; width: 50%;">
-                            <h2 style="margin-top: 0;{% if not row['Actuality'] %}text-decoration: line-through;{% endif %}">{{ row['BrandName'] + ' ' + row['ModelName'] +
-                                ', ' + str(row['ReleaseDate']) }}
-                                <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
-                            </h2>
+                        <td colspan=2>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <h2 style="margin-top: 0;{% if not row['Actuality'] %}text-decoration: line-through;{% endif %}">
+                                            {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
+                                            <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+                                        </h2>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="vertical-align: top;">
                         <td>
-                            <p style="color: gray;">Двигатель</p>
-                        </td>
-                        <td style="width: 26%;">
-                            <p style="margin-top: 0;">{{ row['IDEngine'] + ', ' + row['FuelType'] + ', ' + str(row['Capacity']) + ' л' }}</p>
-                        </td>
-                        <td rowspan=0 style="vertical-align: top; width: 50%; padding-right: 0; padding-left: 50px;">
-                            <p style="margin-top: 0; text-align: justify;"><span
-                                    style="color: gray;">Дополнительно: </span>{{ row['Description'] }} По данному
-                                автомобилю нет информации в базе ГИБДД. Возможно, владелец намеренно указал неправильный
-                                VIN, так как с машиной есть какие-то проблемы. Будьте внимательны!</p>
-                            <p><span style="color: gray;">Город: </span>{{ row['CityName'] }}</p>
-                            <p style="color: gray;">Объявление {{ row['IDSelling'] }} от {{ row['AdditionDate'] }}</p>
-                            <p>
-                                {% if not row['Actuality'] %}
-                                    <h3 style="margin-bottom: 5px;">Автомобиль снят с продажи</h3>
-                                    <p>Контактные данные закрыты</p>
-                                {% elif not user_id %}
-                                    <span style="color: gray;">Контактный номер
-                                    недоступен для неавторизованных пользователей</span>
-                                    <a href={{ url_for('index') }}>Авторизоваться</a>
-                                {% else %}
-                                    <span style="color: gray;">Контактный номер: </span>{{ row['PhoneNumber'] }}
-                                {% endif %}
-                            </p>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <p style="color: gray;">Двигатель</p>
+                                    </td>
+                                    <td>
+                                        <p style="margin-top: 0;">{{ row['IDEngine'] + ', ' + row['FuelType'] + ', ' + str(row['Capacity']) + ' л' }}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="color: gray;">Мощность</p>
+                                    </td>
+                                    <td>
+                                        <p style="margin-top: 0;">{{ str(int(row['HP'])) + ' л.с.' }}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="color: gray;">Коробка передач</p>
+                                    </td>
+                                    <td>
+                                        <p style="margin-top: 0;">{{ row['TransmissionType'] }}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="color: gray;">Привод</p>
+                                    </td>
+                                    <td>
+                                        <p style="margin-top: 0;">{{ row['DriveType'] }}</p>
+                                    </td>
+                                </tr>
 
+                                <tr>
+                                    <td>
+                                        <p style="color: gray;">VIN / Номер кузова:</p>
+                                    </td>
+                                    <td>
+                                        <p style="margin-top: 0;">{{ row['BodyOrVinNumber'] }}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p style="color: gray;">Гос. номер</p>
+                                    </td>
+                                    <td>
+                                        <p style="margin-top: 0;">{{ row['StateNumber'] }}</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td rowspan=0
+                                        style="vertical-align: top; width: 50%; padding-right: 0; padding-left: 50px;">
+                                        <p style="margin-top: 0; text-align: left; white-space: pre-wrap;"><span
+                                                style="color: gray;">Дополнительно: </span>{{ row['Description'] }}</p>
+                                        <p><span style="color: gray;">Город: </span>{{ row['CityName'] }}</p>
+                                        <p style="color: gray;">Объявление {{ int(row['IDSelling']) }}
+                                            от {{ row['AdditionDate'] }}</p>
+                                        {% if not row['Actuality'] %}
+                                            <h3 style="margin-bottom: 5px;">Автомобиль снят с продажи</h3>
+                                            <p>Контактные данные закрыты</p>
+                                        {% elif not user_id %}
+                                            <p style="color: gray; margin-top: 19px;">Контактный номер
+                                                недоступен для неавторизованных пользователей</p>
+                                            <a href={{ url_for('login') }}>Авторизоваться</a>
+                                        {% else %}
+                                            <p style="margin-top: 19px;"><span
+                                                    style="color: gray;">Контактный номер: </span>{{ row['PhoneNumber'] }}
+                                            </p>
+                                        {% endif %}
+                                        {% if row['IDUser']==user_id %}
+                                            {% if row['Actuality'] %}
+                                                <form>
+                                                    <input type="hidden" name="remove" value={{ row['IDSelling'] }}>
+                                                    <input class="lil_button" type="submit" value="Удалить объявление">
+                                                </form>
+                                            {% else %}
+                                                <form>
+                                                    <input type="hidden" name="restore" value={{ row['IDSelling'] }}>
+                                                    <input class="lil_button" type="submit" value="Восстановить объявление">
+                                                </form>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <p style="color: gray;">Мощность</p>
-                        </td>
-                        <td>
-                            <p style="margin-top: 0;">{{ str(row['HP']) + ' л.с.' }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style="color: gray;">Коробка передач</p>
-                        </td>
-                        <td>
-                            <p style="margin-top: 0;">{{ row['TransmissionType'] }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style="color: gray;">Привод</p>
-                        </td>
-                        <td>
-                            <p style="margin-top: 0;">{{ row['DriveType'] }}</p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <p style="color: gray;">VIN / Номер кузова:</p>
-                        </td>
-                        <td>
-                            <p style="margin-top: 0;">{{ row['BodyOrVinNumber'] }}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p style="color: gray;">Гос. номер</p>
-                        </td>
-                        <td>
-                            <p style="margin-top: 0;">{{ row['StateNumber'] }}</p>
-                        </td>
-                    </tr>
-
-                    </tbody>
                 </table>
             </div>
         {% endfor %}

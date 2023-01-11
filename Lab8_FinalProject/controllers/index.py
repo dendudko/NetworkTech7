@@ -1,25 +1,21 @@
+import flask
 import pandas
 
 from app import app
 from flask import render_template, request, session
 from utils import get_db_connection
 from models.index_model import get_brands, get_models, \
-    get_transmissions, get_drives, get_selling
+    get_transmissions, get_drives, get_selling, remove_selling
 
 
 def check_min_max(min_v, max_v):
     if min_v > max_v:
-        a = min_v
-        min_v = max_v
-        max_v = a
+        min_v, max_v = max_v, min_v
     return min_v, max_v
 
 
 @app.route('/', methods=['get'])
 def index():
-
-    session['user_id'] = 1
-
     conn = get_db_connection()
 
     brand = None
@@ -60,8 +56,27 @@ def index():
     if request.values.get('drive'):
         drive = request.values.get('drive')
 
+    min_hp = None
+    max_hp = None
+    if request.values.get('minhp'):
+        min_hp = int(request.values.get('minhp'))
+    if request.values.get('maxhp'):
+        max_hp = int(request.values.get('maxhp'))
+    if min_hp and max_hp:
+        min_hp, max_hp = check_min_max(min_hp, max_hp)
+
     df_selling = get_selling(conn, brand, model, min_price, max_price,
-                             min_year, max_year, transmission, drive)
+                             min_year, max_year, transmission, drive, min_hp, max_hp)
+
+    if session.get('user_id') is None:
+        session['user_id'] = 0
+
+    if request.values.get('remove'):
+        remove_selling(conn, session['user_id'], request.values.get('remove'), action=0)
+        return flask.redirect(flask.url_for('index'))
+    if request.values.get('restore'):
+        remove_selling(conn, session['user_id'], request.values.get('restore'), action=1)
+        return flask.redirect(flask.url_for('index'))
 
     # выводим форму
     html = render_template(
@@ -79,6 +94,8 @@ def index():
         transmission=transmission,
         drives=df_drives,
         drive=drive,
+        min_hp=min_hp,
+        max_hp=max_hp,
         df_selling=df_selling,
         iterrows=pandas.DataFrame.iterrows,
         len=len,
