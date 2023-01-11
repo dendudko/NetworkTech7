@@ -67,7 +67,7 @@ def get_selling(conn, brand=None, model=None, min_price=None, max_price=None,
     return df
 
 
-def remove_selling(conn, user_id, selling_id, action):
+def remove_selling(conn, user_id, selling_id, act):
     df = pandas.read_sql('''
     select IDUser, IDSelling from Selling
     join Car C on C.IDCar = Selling.IDCar
@@ -77,7 +77,17 @@ def remove_selling(conn, user_id, selling_id, action):
     if not df.empty:
         cursor = conn.cursor()
         cursor.executescript(f'''
-        update Selling set Actuality={action}
+        update Selling set Actuality={act}
         where IDSelling={selling_id}
         ''')
+        if act:
+            cursor.executescript(f'''
+            update Selling set ExpirationDate=date('now', '+3 month')
+            where IDSelling={selling_id}
+            ''')
+        else:
+            cursor.executescript(f'''
+                        update Selling set ExpirationDate=date('now')
+                        where IDSelling={selling_id}
+                        ''')
         conn.commit()

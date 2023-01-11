@@ -72,10 +72,10 @@ def index():
         session['user_id'] = 0
 
     if request.values.get('remove'):
-        remove_selling(conn, session['user_id'], request.values.get('remove'), action=0)
+        remove_selling(conn, session['user_id'], request.values.get('remove'), act=0)
         return flask.redirect(flask.url_for('index'))
     if request.values.get('restore'):
-        remove_selling(conn, session['user_id'], request.values.get('restore'), action=1)
+        remove_selling(conn, session['user_id'], request.values.get('restore'), act=1)
         return flask.redirect(flask.url_for('index'))
 
     # выводим форму
