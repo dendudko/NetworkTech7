@@ -76,10 +76,10 @@ body {
 /*Фильтр*/
 .filter {
     border-radius: 15px;
+    max-width: 1075px;
     background-color: #f5f5f5;
-    width: 1075px;
     padding: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .filter input, .filter textarea {
@@ -154,17 +154,6 @@ body {
     border-radius: 0 8px 8px 0 !important;
 }
 
-.filter input[type=reset]{
-    width: fit-content;
-    height: fit-content;
-    padding: 8px;
-}
-
-.filter input[type=reset]:hover{
-    cursor: pointer;
-    background-color: #fafafa;
-}
-
 /*Вывод объявления*/
 .selling {
     border-radius: 15px;
@@ -186,7 +175,7 @@ body {
     margin: 0 0 5px;
 }
 
-.lil_button{
+.lil_button {
     width: fit-content;
     padding: 7px;
     border-radius: 8px;

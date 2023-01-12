@@ -156,8 +156,6 @@
         <input type="number" placeholder="до" min=0 max=2000 step=1
                class="to" name="maxhp" value={{ max_hp }}>
         <input type="submit" value="Показать">
-        <input type="reset" value="Очистить форму">
-
     </form>
 
     {#Вывод брендов симпатичным списком, бесполезная трата места((( #}
@@ -287,7 +285,8 @@
                                             {% else %}
                                                 <form>
                                                     <input type="hidden" name="restore" value={{ row['IDSelling'] }}>
-                                                    <input class="lil_button" type="submit" value="Восстановить объявление">
+                                                    <input class="lil_button" type="submit"
+                                                           value="Восстановить объявление">
                                                 </form>
                                             {% endif %}
                                         {% endif %}
