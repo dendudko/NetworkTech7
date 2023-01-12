@@ -154,6 +154,12 @@ body {
     border-radius: 0 8px 8px 0 !important;
 }
 
+.filter input[type=reset]{
+    width: fit-content;
+    height: fit-content;
+    padding: 8px;
+}
+
 .filter input[type=reset]:hover{
     cursor: pointer;
     background-color: #fafafa;
